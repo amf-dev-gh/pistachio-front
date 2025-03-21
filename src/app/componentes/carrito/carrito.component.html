@@ -23,7 +23,8 @@
         <h3>Total: {{total | currency:'USD':'symbol'}}</h3>
         <div class="d-flex justify-content-center">
           <button (click)="vaciarCarrito()" class="btn_card m-1 btn_red">Vaciar carito</button>
-          <button class="btn_card m-1 btn_green">Finalizar compra</button>
+          <button class="btn_card m-1 btn_green" data-bs-toggle="modal" data-bs-target="#exampleModal">Finalizar
+            pedido</button>
         </div>
       </div>
     </div>
@@ -31,5 +32,30 @@
     @else {
     <h1 class="text-center">No se han agregado productos hasta el momento...</h1>
     }
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Finalizar pedido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2 class="my-1 mb-3 text-center">Total a abonar: {{total | currency:'USD':'symbol'}}</h2>
+        <label for="nombreCompleto" class="form-label">Nombre y apellido:</label>
+        <input [formControl]="nombreCompleto" type="text" class="form-control" placeholder="Nombre completo"
+          aria-label="Nombre completo" aria-describedby="button-addon2" id="nombreCompleto">
+          @if (nombreCompleto.invalid) {
+            <p class="text-danger m-0 ms-1"><small>Debe ingresar al menos un nombre y un apellido.</small></p>
+          }
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary btn_modal" type="submit" data-bs-dismiss="modal"
+            (click)="finalizarCompra()" [disabled]="nombreCompleto.invalid">Enviar</button>
+        </div>
+    </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
   background-color: var(--bg-grey);
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
-  min-height: 72vh;
+  min-height: 65vh;
 }
 
 .carrito{
@@ -34,10 +34,23 @@
   cursor: pointer;
 }
 
+.btn_modal{
+  background-color: white;
+  color: var(--verde-pistachio);
+  border: 2px solid var(--verde-pistachio);
+  margin: 0;
+  border-radius: 2px;
+}
+
+.btn_modal:hover{
+  background-color: var(--verde-pistachio);
+  color: white;
+}
+
 @media(max-width: 1000px){
 
   .container-carrito{
-    min-height: 82vh;
+    min-height: 80vh;
   }
   
 }
