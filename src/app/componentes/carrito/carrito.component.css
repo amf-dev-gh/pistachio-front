@@ -1,0 +1,43 @@
+.container-carrito{
+  background-color: var(--bg-grey);
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  min-height: 72vh;
+}
+
+.carrito{
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.btn_red:hover{
+  background-color: rgb(179, 87, 87);
+  color: white;
+}
+
+.btn_red:active{
+  background-color: rgb(167, 43, 43);
+}
+
+.btn_green:hover{
+  background-color: rgb(71, 130, 73);
+  color: white;
+}
+
+.btn_green:active{
+  background-color: rgb(24, 146, 28);
+}
+
+.delete-icon{
+  cursor: pointer;
+}
+
+@media(max-width: 1000px){
+
+  .container-carrito{
+    min-height: 82vh;
+  }
+  
+}

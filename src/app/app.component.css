@@ -1,0 +1,12 @@
+
+@font-face {
+  font-family: 'SourGummy';
+  src: url('../assets/font/SourGummy-VariableFont.ttf'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'SourGummy', sans-serif;
+  color: var(--verde-pistachio);
+}

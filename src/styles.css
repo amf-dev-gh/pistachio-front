@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+  --bg-grey: #F2F2F2;
+  --crema-pistachio: #FFE7BC;
+  --verde-pistachio: #00322B;
+}
+
+.card-producto{
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.card-producto_info{
+  padding: 0.5rem;
+}
+
+.link-card{
+  color: var(--verde-pistachio);
+  display: none;
+}
+
+.btn_card{
+  width: 100%;
+  background-color: white;
+  color: var(--verde-pistachio);
+  border: 2px solid var(--verde-pistachio);
+  border-radius: 2px;
+}
+
+.btn_card:hover, .btn_modal:hover{
+  background-color: var(--verde-pistachio);
+  color: white;
+}

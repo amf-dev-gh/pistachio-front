@@ -1,0 +1,35 @@
+<div class="container-carrito">
+  <div class="container my-4">
+    @if (itemsCarrito.length !== 0) {
+    <h1>Mi pedido</h1>
+    <div class="row justify-content-between px-2">
+      <div class="col-md-7 carrito mb-2">
+        @for (item of itemsCarrito; track $index) {
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start w-100">
+          <p class="m-0 w-100 w-md-auto">{{$index+1}} - {{item.producto.nombre}}</p>
+          <div class="d-flex justify-content-between w-100 w-md-auto">
+            <p class="m-0 mx-3">Cant. {{item.cantidad}}</p>
+            <p class="m-0">
+              {{item.producto.precio * item.cantidad | currency:'USD':'symbol'}}
+              <span class="text-danger delete-icon" (click)="eliminarDelCarro(item.producto)"><i
+                  class="bi bi-trash"></i></span>
+            </p>
+          </div>
+        </div>
+        <hr>
+        }
+      </div>
+      <div class="col-md-4 carrito align-self-start">
+        <h3>Total: {{total | currency:'USD':'symbol'}}</h3>
+        <div class="d-flex justify-content-center">
+          <button (click)="vaciarCarrito()" class="btn_card m-1 btn_red">Vaciar carito</button>
+          <button class="btn_card m-1 btn_green">Finalizar compra</button>
+        </div>
+      </div>
+    </div>
+    }
+    @else {
+    <h1 class="text-center">No se han agregado productos hasta el momento...</h1>
+    }
+  </div>
+</div>

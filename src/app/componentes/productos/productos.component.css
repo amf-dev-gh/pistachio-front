@@ -1,0 +1,24 @@
+.container{
+  min-height: 67vh;
+}
+
+.img-card{
+  border-radius: 2px 2px 0 0;
+  width: 100%;
+}
+
+.btn_modal{
+  background-color: white;
+  color: var(--verde-pistachio);
+  border: 2px solid var(--verde-pistachio);
+}
+
+.btn_modal:hover{
+  background-color: var(--verde-pistachio);
+  color: white;
+}
+
+.img-modal{
+  width: 100%;
+  border-radius: 3px;
+}
