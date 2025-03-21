@@ -52,7 +52,7 @@ header{
 
 .dropdown-menu{
   background-color: var(--bg-grey);
-  width: 100% !important;
+  font-size: 0.8rem;
 }
 
 @media(max-width: 990px){
