@@ -41,7 +41,7 @@
           }
           <div class="input-group">
             <input [formControl]="cantidad" type="number" class="form-control" placeholder="Cantidad" aria-label="cantidad" min="1" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary btn_modal" type="button" id="button-addon2" data-bs-dismiss="modal" (click)="agregarAlCarrito(productoDetalle)">Agregar al carrito</button>
+            <button class="btn btn-outline-secondary btn_modal" type="button" id="button-addon2" data-bs-dismiss="modal" [disabled]="cantidad.invalid" (click)="agregarAlCarrito(productoDetalle)">Agregar al carrito</button>
           </div>
           </div>
         </div>

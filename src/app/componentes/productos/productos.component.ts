@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../servicios/api.service';
 import { Producto } from '../../interfaces/producto.interface';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarritoService } from '../../servicios/carrito.service';
 import { ItemOrden } from '../../interfaces/item.interface';
 
@@ -35,7 +35,11 @@ export class ProductosComponent implements OnInit {
     stock: 0
   }
 
-  cantidad = new FormControl(1);
+  cantidad = new FormControl(1, [
+    Validators.required, 
+    Validators.min(1),
+    Validators.pattern('^[0-9]+$')
+  ]);
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router, private carritoService: CarritoService) { }
 
@@ -106,24 +110,24 @@ export class ProductosComponent implements OnInit {
     })
   }
 
-  cargarCategoriaOtros() {
-    this.apiService.listarProductos().subscribe({
-      next: datos => {
-        this.productos = datos.filter(p => !p.categoria?.principal);
-        this.titulo = 'Otros productos';
-      },
-      error: e => {
-        console.error('Error al obtener OTROS productos', e);
-      }
-    });
-  }
+  // cargarCategoriaOtros() {
+  //   this.apiService.listarProductos().subscribe({
+  //     next: datos => {
+  //       this.productos = datos.filter(p => !p.categoria?.principal);
+  //       this.titulo = 'Otros productos';
+  //     },
+  //     error: e => {
+  //       console.error('Error al obtener OTROS productos', e);
+  //     }
+  //   });
+  // }
 
   cargarProductosPorCategoria(categoriaId: number) {
     this.apiService.listarProductosPorCategoria(categoriaId).subscribe({
       next: datos => {
         this.productos = datos;
         if (this.productos.length !== 0) {
-          const nombreCategoria = this.productos[1].categoria?.nombre;
+          const nombreCategoria = this.productos[0].categoria?.nombre;
           this.titulo = `${nombreCategoria}`;
         } else {
           this.titulo = 'No existe categoría';
@@ -140,6 +144,7 @@ export class ProductosComponent implements OnInit {
   }
 
   agregarAlCarrito(producto: Producto) {
+    const cantidad = this.cantidad.value
     const item: ItemOrden = {
       producto: producto,
       cantidad: this.cantidad.value || 0
