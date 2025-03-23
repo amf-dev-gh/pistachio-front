@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Categoria } from '../../interfaces/categoria.interface';
-import { ApiService } from '../../servicios/api.service';
 import { CarritoService } from '../../servicios/carrito.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CategoriasService } from '../../servicios/categorias.service';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +12,14 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
 
-  categorias:Categoria[] = [];
-  cantidadCarrito:number = 0;
-  totalCarrito:number = 0;
+  categorias: Categoria[] = [];
+  cantidadCarrito: number = 0;
+  totalCarrito: number = 0;
   filtro = new FormControl('');
-  
-  constructor(private apiService:ApiService, private carritoService:CarritoService, private router:Router){}
+
+  constructor(private catService: CategoriasService, private carritoService: CarritoService, private router: Router) { }
 
   ngOnInit(): void {
     this.obtenerCategoriasPrincipales();
@@ -27,8 +27,8 @@ export class HeaderComponent implements OnInit{
     this.carritoService.carrito$.subscribe(() => this.actualizarTotales());
   }
 
-  obtenerCategoriasPrincipales(){
-    this.apiService.listarCategorias().subscribe(
+  obtenerCategoriasPrincipales() {
+    this.catService.listarCategorias().subscribe(
       {
         next: data => {
           // this.categorias = data.filter(c => c.principal);
@@ -39,14 +39,14 @@ export class HeaderComponent implements OnInit{
     )
   }
 
-  buscarProductos(){
+  buscarProductos() {
     const valor = this.filtro.value || '';
-    if(valor !== ''){
+    if (valor !== '') {
       this.router.navigate([`/filtrar/${valor}`]);
     }
   }
 
-  obtenerValoresCarrito(){
+  obtenerValoresCarrito() {
     this.totalCarrito = this.carritoService.obtenerMontoTotal();
     this.cantidadCarrito = this.carritoService.obtenerCantidadTotal();
   }

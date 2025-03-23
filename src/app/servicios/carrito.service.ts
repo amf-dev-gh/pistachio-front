@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ItemOrden } from '../interfaces/item.interface';
+import { ItemPedido } from '../interfaces/itemPedido.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,12 @@ import { ItemOrden } from '../interfaces/item.interface';
 export class CarritoService {
 
   private claveCarrito = 'carrito';
-  private carrito = new BehaviorSubject<ItemOrden[]>(this.cargarCarritoDesdeStorage());
+  private carrito = new BehaviorSubject<ItemPedido[]>(this.cargarCarritoDesdeStorage());
   carrito$ = this.carrito.asObservable();
 
-  constructor() {}
+  constructor() { }
 
-  private cargarCarritoDesdeStorage(): ItemOrden[] {
+  private cargarCarritoDesdeStorage(): ItemPedido[] {
     const carritoGuardado = localStorage.getItem(this.claveCarrito);
     return carritoGuardado ? JSON.parse(carritoGuardado) : [];
   }
@@ -22,7 +22,7 @@ export class CarritoService {
     localStorage.setItem(this.claveCarrito, JSON.stringify(this.carrito.value));
   }
 
-  agregarAlCarrito(item: ItemOrden): void {
+  agregarAlCarrito(item: ItemPedido): void {
     const carritoActual = this.carrito.value;
     const indice = carritoActual.findIndex(i => i.producto.id === item.producto.id);
 
@@ -48,7 +48,7 @@ export class CarritoService {
     localStorage.removeItem(this.claveCarrito);
   }
 
-  obtenerItemsCarrito(): ItemOrden[] {
+  obtenerItemsCarrito(): ItemPedido[] {
     return this.carrito.value;
   }
 

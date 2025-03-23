@@ -24,7 +24,7 @@
   background-color: white;
   color: var(--verde-pistachio);
   border: 2px solid var(--verde-pistachio);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .btn_card:hover, .btn_modal:hover{

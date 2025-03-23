@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../servicios/api.service';
+import { ProductoService } from '../../servicios/producto.service';
 import { Producto } from '../../interfaces/producto.interface';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarritoService } from '../../servicios/carrito.service';
-import { ItemOrden } from '../../interfaces/item.interface';
+import { ItemPedido } from '../../interfaces/itemPedido.interface';
 
 @Component({
   selector: 'app-productos',
@@ -23,7 +23,7 @@ export class ProductosComponent implements OnInit {
     id: 0,
     nombre: '',
     categoria: {
-      id:0,
+      id: 0,
       nombre: '',
       principal: false
     },
@@ -36,12 +36,12 @@ export class ProductosComponent implements OnInit {
   }
 
   cantidad = new FormControl(1, [
-    Validators.required, 
+    Validators.required,
     Validators.min(1),
     Validators.pattern('^[0-9]+$')
   ]);
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router, private carritoService: CarritoService) { }
+  constructor(private route: ActivatedRoute, private prodService: ProductoService, private router: Router, private carritoService: CarritoService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(() => {
@@ -62,7 +62,7 @@ export class ProductosComponent implements OnInit {
   }
 
   obtenerProductosDestacados() {
-    this.apiService.listarProductos().subscribe({
+    this.prodService.listarProductos().subscribe({
       next: datos => {
         this.productos = datos.filter(p => p.destacado);
         this.titulo = 'Productos destacados';
@@ -82,12 +82,6 @@ export class ProductosComponent implements OnInit {
       this.router.navigate(['inicio']);
       return;
     }
-
-    // if (categoriaId === 999) {
-    //   this.cargarCategoriaOtros();
-    // } else {
-    //   this.cargarProductosPorCategoria(categoriaId);
-    // }
     this.cargarProductosPorCategoria(categoriaId);
   }
 
@@ -98,7 +92,7 @@ export class ProductosComponent implements OnInit {
       this.router.navigate(['inicio']);
       return;
     }
-    this.apiService.buscarProductos(nombre).subscribe({
+    this.prodService.buscarProductos(nombre).subscribe({
       next: productos => {
         this.productos = productos;
         this.titulo = `Productos encontrados para "${nombre}"`;
@@ -110,20 +104,8 @@ export class ProductosComponent implements OnInit {
     })
   }
 
-  // cargarCategoriaOtros() {
-  //   this.apiService.listarProductos().subscribe({
-  //     next: datos => {
-  //       this.productos = datos.filter(p => !p.categoria?.principal);
-  //       this.titulo = 'Otros productos';
-  //     },
-  //     error: e => {
-  //       console.error('Error al obtener OTROS productos', e);
-  //     }
-  //   });
-  // }
-
   cargarProductosPorCategoria(categoriaId: number) {
-    this.apiService.listarProductosPorCategoria(categoriaId).subscribe({
+    this.prodService.listarProductosPorCategoria(categoriaId).subscribe({
       next: datos => {
         this.productos = datos;
         if (this.productos.length !== 0) {
@@ -145,7 +127,7 @@ export class ProductosComponent implements OnInit {
 
   agregarAlCarrito(producto: Producto) {
     const cantidad = this.cantidad.value
-    const item: ItemOrden = {
+    const item: ItemPedido = {
       producto: producto,
       cantidad: this.cantidad.value || 0
     }

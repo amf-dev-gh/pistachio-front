@@ -1,6 +1,6 @@
 import { Producto } from "./producto.interface";
 
-export interface ItemOrden{
+export interface ItemPedido{
   producto: Producto,
   cantidad: number
 }

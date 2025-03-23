@@ -37,7 +37,7 @@
           <h4 class="my-1 mb-3">{{productoDetalle.cantidad}}</h4>
           <h4 class="my-1 mb-3">{{ productoDetalle.precio | currency:'USD':'symbol' }}</h4>
           @if(productoDetalle.descripcion !== ''){
-            <h5 class="my-1 mb-3">Contiene: {{productoDetalle.descripcion}}</h5>
+            <h5 class="my-1 mb-3">Información: {{productoDetalle.descripcion}}</h5>
           }
           <div class="input-group">
             <input [formControl]="cantidad" type="number" class="form-control" placeholder="Cantidad" aria-label="cantidad" min="1" aria-describedby="button-addon2">

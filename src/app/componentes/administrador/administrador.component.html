@@ -1,0 +1,118 @@
+<div class="container-fluid">
+  <h3>Productos</h3>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div class="d-flex align-items-center">
+      <label for="nombreProducto" class="me-2">Filtrar por nombre:</label>
+      <input type="text" placeholder="Buscar producto..." (input)="buscarProducto($event)" id="nombreProducto" />
+    </div>
+    <button class="btn_card" data-bs-toggle="modal" data-bs-target="#modalCrearEditar" (click)="crearProducto()">Nuevo
+      producto</button>
+  </div>
+  <table class="table table-sm table-striped table-hover">
+    <thead>
+      <tr class="text-center">
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Descripcion</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Destacados ({{cantDestacados}})</th>
+        <th>URL Imagen</th>
+        <th>Categoria</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of productosFiltrados$ | async; track $index) {
+      <tr>
+        <td>{{p.nombre}}</td>
+        <td class="text-center">{{p.cantidad}}</td>
+        <td class="text-break">{{p.descripcion}}</td>
+        <td class="text-center">{{p.precio | currency:'USD':'symbol'}}</td>
+        <td class="text-center">{{p.stock}}</td>
+        <td class="text-center">{{p.destacado ? 'SI':'NO'}}</td>
+        <td>{{p.urlImagen}}</td>
+        <td class="text-center">{{p.categoria.nombre}}</td>
+        <td class="text-center">
+          <span class="mx-1 accion-link" (click)="editarProducto(p)" data-bs-toggle="modal"
+            data-bs-target="#modalCrearEditar"><i class="bi bi-pencil"></i></span>
+          <span class="text-danger mx-1 accion-link" (click)="eliminarProducto(p)"><i class="bi bi-trash3"></i></span>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCrearEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        @if (formProducto.get('id')?.value !== null) {
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar producto</h1>
+        }
+        @else {
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Nuevo producto</h1>
+        }
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form class="row g-3" [formGroup]="formProducto" (submit)="guardarCambios()">
+          <div class="col-md-4">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input formControlName="nombre" type="text" class="form-control" id="nombre"
+              placeholder="Nombre del producto">
+          </div>
+          <div class="col-md-4">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input formControlName="cantidad" type="text" class="form-control" id="cantidad"
+              placeholder="Cantidad x unidad">
+          </div>
+          <div class="col-md-4">
+            <label for="urlImagen" class="form-label">Url imagen</label>
+            <input formControlName="urlImagen" type="text" class="form-control" id="urlImagen" placeholder="URL imagen">
+          </div>
+          <div class="col-12">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea formControlName="descripcion" class="form-control" id="descripcion"
+              placeholder="Descripción del producto"></textarea>
+          </div>
+          <div class="col-md-4">
+            <label for="precio" class="form-label">Precio unitario</label>
+            <input formControlName="precio" type="number" min="0" class="form-control" id="precio">
+          </div>
+          <div class="col-md-4">
+            <label for="stock" class="form-label">Stock</label>
+            <input formControlName="stock" type="number" min="0" size="1" class="form-control" id="stock">
+          </div>
+          <div class="col-md-4">
+            <label for="inputState" class="form-label">Categoría</label>
+            <select id="inputState" class="form-select" formControlName="categoria">
+              <option *ngFor="let c of categorias" [ngValue]="c">
+                {{ c.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <label class="form-check-label" for="destacado">
+                <input class="form-check-input" type="checkbox" id="destacado" formControlName="destacado">
+                Destacar producto
+              </label>
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-end">
+            @if (formProducto.get('id')?.value !== null) {
+              <button type="submit" class=" btn_card" [disabled]="formProducto.invalid" data-bs-dismiss="modal">Guardar cambios</button>
+            }
+            @else {
+              <button type="submit" class="btn_card" [disabled]="formProducto.invalid" data-bs-dismiss="modal">Crear</button>
+            }
+          </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
