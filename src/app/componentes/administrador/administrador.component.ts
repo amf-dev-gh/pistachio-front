@@ -27,7 +27,7 @@ export class AdministradorComponent implements OnInit {
       id: [null],
       nombre: ['', Validators.required],
       cantidad: ['', Validators.required],
-      urlImagen: ['', Validators.required],
+      urlImagen: [''],
       descripcion: [''],
       precio: [0, Validators.required],
       stock: [0],
@@ -95,10 +95,6 @@ export class AdministradorComponent implements OnInit {
     });
   }
 
-  eliminarProducto(p: Producto) {
-    console.log(`Eliminar producto ${p.id}`);
-  }
-
   crearProducto() {
     this.formProducto.reset({
       id: null,
@@ -134,5 +130,17 @@ export class AdministradorComponent implements OnInit {
       error: r => console.error("Error al guardar o actualizar producto")
     });
   }
-
+  
+  eliminarProducto(p: Producto) {
+    const eliminar = confirm(`Está seguro de eliminar ${p.nombre} X (${p.cantidad})?`)
+    if(eliminar){
+      this.prodService.eliminarProducto(p.id).subscribe({
+        next: () => {
+          alert(`Producto ${p.nombre} eliminado con éxito`);
+          this.obtenerProductos();
+        },
+        error: e => console.error("El producto no existe en la BBDD", e)
+      })
+    }
+  }
 }

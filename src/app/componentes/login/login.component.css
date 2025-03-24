@@ -1,0 +1,27 @@
+.contenedor-form {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 0px 0px 4px 1px var(--verde-pistachio);
+}
+
+.img-formulario {
+  width: 5rem;
+}
+
+.olvido-link {
+  font-size: 0.9rem;
+  color: var(--verde-pistachio-inactivo);
+  text-decoration: none;
+}
+
+.olvido-link:hover {
+  color: var(--verde-pistachio);
+  text-decoration: underline;
+}
+
+@media(max-width: 600px) {
+  .contenedor-form{
+    width: 100%;
+  }
+}

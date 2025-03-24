@@ -1,12 +1,12 @@
-<div class="container my-3">
-  <h1 class="my-3">{{titulo}}</h1>
+<div class="container contenedor-minimo pt-3">
+  <h1 class="mb-3">{{titulo}}</h1>
   <div class="row">
     @for (producto of productos; track $index) {
       <div class="col-6 col-md-4 col-lg-2 mb-3">
         <div class="card-producto h-100 d-flex flex-column">
           <img [src]="producto.urlImagen" alt="imagen-card" class="img-card">
           <div class="card-producto_info d-flex flex-column flex-grow-1">
-            <p class="my-1 fw-semibold text-break">{{producto.nombre}}. <small>{{producto.cantidad}}</small></p>
+            <p class="my-1 fw-semibold text-break">{{producto.nombre}} - <small>{{producto.cantidad}}</small></p>
             <p class="my-1">{{ producto.precio | currency:'USD':'symbol' }}</p>
             <div class="mt-auto">
               <button class="btn_card w-100" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="asignarProductoDetalle(producto)">

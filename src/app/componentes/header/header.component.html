@@ -28,27 +28,34 @@
             }
           </ul>
         </div>
-        <div class="link-carrito">
-          <p class="m-0"><a routerLink="/carrito" class="nav-link"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><i class="bi bi-cart me-1 position-relative">
-            @if (cantidadCarrito !== 0) {
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{cantidadCarrito}}
-                <span class="visually-hidden">unread messages</span>
-              </span>
-            }
-          </i>
-             {{ totalCarrito | currency:'USD':'symbol' }}</a></p>
-        </div>
+        @if (!esAdmin) {
+          <div>
+            <p class="m-0"><a routerLink="/carrito" class="nav-link"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><i class="bi bi-cart me-1 position-relative">
+              @if (cantidadCarrito !== 0) {
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{cantidadCarrito}}
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              }
+            </i>
+               {{ totalCarrito | currency:'USD':'symbol' }}</a></p>
+          </div>
+        }
+        @else {
+          <p class="m-0"><a (click)="cerrarSesion()" class="nav-link">Cerrar sesión</a></p>
+        }
       </div>
     </div>
   </nav>
-  <nav class="container d-flex justify-content-evenly align-items-center py-2 flex-wrap gap-4 nav_links_cat" >
+@if (!esAdmin) {
+  <nav class="container d-flex justify-content-evenly align-items-center py-2 flex-wrap gap-2 nav_links_cat" >
     @for (categoria of categorias; track $index) {
       <p class="m-0">
-        <a class="nav-link nav-category" [routerLink]="'/categorias/' + categoria.id">
+        <a class="nav-link nav-category mx-2" [routerLink]="'/categorias/' + categoria.id">
           {{ categoria.nombre }}
         </a>
       </p>
     }
   </nav>
+}
 </header>

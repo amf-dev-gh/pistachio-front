@@ -30,4 +30,8 @@ export class ProductoService {
     return this.http.post<Producto>(`${this.apiUrl}/guardar`, producto);
   }
 
+  eliminarProducto(idProducto: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/eliminar/${idProducto}`);
+  }
+
 }

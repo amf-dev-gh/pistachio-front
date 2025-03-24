@@ -1,25 +1,30 @@
-:root{
+:root {
   --bg-grey: #F2F2F2;
   --crema-pistachio: #FFE7BC;
   --verde-pistachio: #00322B;
+  --verde-pistachio-inactivo: rgb(108, 129, 108);
 }
 
-.card-producto{
+.contenedor-minimo {
+  min-height: 67vh;
+}
+
+.card-producto {
   width: 100%;
   border-radius: 3px;
   border: 1px solid #ccc;
 }
 
-.card-producto_info{
+.card-producto_info {
   padding: 0.5rem;
 }
 
-.link-card{
+.link-card {
   color: var(--verde-pistachio);
   display: none;
 }
 
-.btn_card{
+.btn_card {
   width: 100%;
   background-color: white;
   color: var(--verde-pistachio);
@@ -27,7 +32,26 @@
   border-radius: 3px;
 }
 
-.btn_card:hover, .btn_modal:hover{
+.btn_card:hover,
+.btn_modal:hover {
   background-color: var(--verde-pistachio);
   color: white;
+}
+
+.btn_card:disabled {
+  color: var(--verde-pistachio-inactivo);
+  border: var(--verde-pistachio-inactivo);
+  border: 2px solid var(--verde-pistachio-inactivo);
+}
+
+.btn_card:disabled:hover {
+  background-color: white;
+}
+
+@media(max-width: 1000px) {
+
+  .contenedor-minimo {
+    min-height: 77vh;
+  }
+
 }

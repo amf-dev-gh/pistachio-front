@@ -30,7 +30,9 @@
         <td class="text-break">{{p.descripcion}}</td>
         <td class="text-center">{{p.precio | currency:'USD':'symbol'}}</td>
         <td class="text-center">{{p.stock}}</td>
-        <td class="text-center">{{p.destacado ? 'SI':'NO'}}</td>
+        <td class="text-center">
+          <input type="checkbox" [checked]="p.destacado" class="form-check-input" disabled>
+        </td>
         <td>{{p.urlImagen}}</td>
         <td class="text-center">{{p.categoria.nombre}}</td>
         <td class="text-center">

@@ -1,24 +1,14 @@
 td {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   max-width: 150px;
 }
 
-.accion-link{
+.accion-link {
   cursor: pointer;
 }
 
-.btn_card{
+.btn_card {
   width: 150px;
-}
-
-.btn_card:disabled{
-  color: rgb(108, 129, 108);
-  border: rgb(108, 129, 108);
-  border: 2px solid rgb(108, 129, 108);
-}
-
-.btn_card:disabled:hover{
-  background-color: white;
 }

@@ -5,6 +5,7 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CategoriasService } from '../../servicios/categorias.service';
+import { AuthService } from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -18,13 +19,17 @@ export class HeaderComponent implements OnInit {
   cantidadCarrito: number = 0;
   totalCarrito: number = 0;
   filtro = new FormControl('');
+  esAdmin: boolean = true;
 
-  constructor(private catService: CategoriasService, private carritoService: CarritoService, private router: Router) { }
+  constructor(private catService: CategoriasService, private carritoService: CarritoService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.obtenerCategoriasPrincipales();
     this.actualizarTotales();
     this.carritoService.carrito$.subscribe(() => this.actualizarTotales());
+    this.authService.esAdmin$.subscribe(esAdmin => {
+      this.esAdmin = esAdmin;
+    });
   }
 
   obtenerCategoriasPrincipales() {
@@ -54,5 +59,9 @@ export class HeaderComponent implements OnInit {
   actualizarTotales() {
     this.cantidadCarrito = this.carritoService.obtenerCantidadTotal();
     this.totalCarrito = this.carritoService.obtenerMontoTotal();
+  }
+
+  cerrarSesion() {
+    this.authService.logout();
   }
 }
