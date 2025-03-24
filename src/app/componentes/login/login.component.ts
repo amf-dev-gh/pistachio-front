@@ -24,7 +24,7 @@ export class LoginComponent {
   iniciarSesion() {
     const credenciales:CredencialesLogin = {
       email: this.formLogin.get('email')?.value,
-      passwprd: this.formLogin.get('password')?.value
+      password: this.formLogin.get('password')?.value
     };
     this.authService.login(credenciales).subscribe({
       next: r => this.router.navigate(['/administrador']),

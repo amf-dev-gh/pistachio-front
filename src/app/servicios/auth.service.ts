@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private apiUrl: string = 'http://localhost:8080/api/login';
+  private apiUrl: string = 'http://localhost:8080/api/auth';
   private esAdminSubject = new BehaviorSubject<boolean>(this.calcularEsAdmin());
   esAdmin$ = this.esAdminSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(credenciales: CredencialesLogin): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}`, credenciales).pipe(
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credenciales).pipe(
       tap(response => {
         if (response.token) {
           localStorage.setItem('usuario', JSON.stringify(response));
@@ -47,6 +47,11 @@ export class AuthService {
 
   actualizarEstadoAdmin(): void {
     this.esAdminSubject.next(this.calcularEsAdmin());
+  }
+
+  obtenerToken() {
+    const usuario = this.obtenerUsuario();
+    return usuario.token;
   }
 
   private calcularEsAdmin(): boolean {

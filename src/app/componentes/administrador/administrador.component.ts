@@ -123,17 +123,16 @@ export class AdministradorComponent implements OnInit {
     };
     this.prodService.guardarProducto(producto).subscribe({
       next: r => {
-        console.log(r);
         alert(`Producto ${r.nombre} guardado/actualizado con éxito`);
         this.obtenerProductos();
       },
       error: r => console.error("Error al guardar o actualizar producto")
     });
   }
-  
+
   eliminarProducto(p: Producto) {
     const eliminar = confirm(`Está seguro de eliminar ${p.nombre} X (${p.cantidad})?`)
-    if(eliminar){
+    if (eliminar) {
       this.prodService.eliminarProducto(p.id).subscribe({
         next: () => {
           alert(`Producto ${p.nombre} eliminado con éxito`);

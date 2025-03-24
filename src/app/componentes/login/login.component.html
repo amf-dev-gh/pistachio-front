@@ -3,14 +3,12 @@
     <h2 class="mb-3">Ingreso ADMINISTRADOR</h2>
     <img src="logo-pistachio.webp" alt="Logo pistachio" class="img-formulario mb-3">
 
-    <input class="form-control mb-3" type="email" placeholder="Email" 
-      formControlName="email" id="email" aria-label="Correo electrónico">
-    
-    <input class="form-control mb-3" type="password" placeholder="Contraseña" 
-      formControlName="password" id="password" aria-label="Contraseña">
-    
-    <button class="btn_card mb-2" type="submit" [disabled]="formLogin.invalid">Iniciar sesión</button>
-    
-    <a href="#" class="m-0 olvido-link">¿Olvidó su contraseña?</a>
+    <input class="form-control mb-3" type="email" placeholder="Email" formControlName="email" id="email"
+      aria-label="Correo electrónico">
+
+    <input class="form-control mb-3" type="password" placeholder="Contraseña" formControlName="password" id="password"
+      aria-label="Contraseña">
+
+    <button class="btn_card" type="submit" [disabled]="formLogin.invalid">Iniciar sesión</button>
   </form>
 </div>

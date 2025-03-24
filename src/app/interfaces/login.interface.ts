@@ -1,6 +1,6 @@
 export interface CredencialesLogin {
   email: string,
-  passwprd: string
+  password: string
 }
 
 export interface LoginResponse {
