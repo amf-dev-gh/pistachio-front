@@ -7,14 +7,19 @@
         <th>Cliente</th>
         <th>Total</th>
         <th>Estado</th>
+        <th>Ver</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center">
-        <td>0001</td>
-        <td>Pepe Luis</td>
-        <td>$150.00,55</td>
-        <td>Pendiente</td>
+      <tr class="text-center" *ngFor="let p of pedidos" >
+        <td>{{p.numeroPedido}}</td>
+        <td>{{p.usuario.nombre}} ({{p.usuario.email}})</td>
+        <td>{{p.total | currency:'USD':'symbol' }}</td>
+        <td>{{p.estado}}</td>
+        <td>
+          <span class="mx-1"><i class="bi bi-pencil"></i></span>
+          <span class="mx-1"><i class="bi bi-search"></i></span>
+        </td>
       </tr>
     </tbody>
   </table>

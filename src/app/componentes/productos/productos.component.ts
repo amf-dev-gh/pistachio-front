@@ -64,7 +64,7 @@ export class ProductosComponent implements OnInit {
   obtenerProductosDestacados() {
     this.prodService.listarProductos().subscribe({
       next: datos => {
-        this.productos = datos.filter(p => p.destacado);
+        this.productos = datos.filter(p => p.destacado && p.stock > 0);
         this.titulo = 'Productos destacados';
       },
       error: e => {
@@ -94,7 +94,7 @@ export class ProductosComponent implements OnInit {
     }
     this.prodService.buscarProductos(nombre).subscribe({
       next: productos => {
-        this.productos = productos;
+        this.productos = productos.filter(p => p.stock > 0);
         this.titulo = `Productos encontrados para "${nombre}"`;
       },
       error: e => {
@@ -107,7 +107,7 @@ export class ProductosComponent implements OnInit {
   cargarProductosPorCategoria(categoriaId: number) {
     this.prodService.listarProductosPorCategoria(categoriaId).subscribe({
       next: datos => {
-        this.productos = datos;
+        this.productos = datos.filter(p => p.stock > 0);
         if (this.productos.length !== 0) {
           const nombreCategoria = this.productos[0].categoria?.nombre;
           this.titulo = `${nombreCategoria}`;

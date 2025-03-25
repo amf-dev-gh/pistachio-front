@@ -2,20 +2,21 @@
   <h1 class="mb-3">{{titulo}}</h1>
   <div class="row">
     @for (producto of productos; track $index) {
-      <div class="col-6 col-md-4 col-lg-2 mb-3">
-        <div class="card-producto h-100 d-flex flex-column">
-          <img [src]="producto.urlImagen" alt="imagen-card" class="img-card">
-          <div class="card-producto_info d-flex flex-column flex-grow-1">
-            <p class="my-1 fw-semibold text-break">{{producto.nombre}} - <small>{{producto.cantidad}}</small></p>
-            <p class="my-1">{{ producto.precio | currency:'USD':'symbol' }}</p>
-            <div class="mt-auto">
-              <button class="btn_card" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="asignarProductoDetalle(producto)">
-                Ver detalles
-              </button>
-            </div>
+    <div class="col-6 col-md-4 col-lg-2 mb-3">
+      <div class="card-producto h-100 d-flex flex-column">
+        <img [src]="producto.urlImagen" alt="imagen-card" class="img-card">
+        <div class="card-producto_info d-flex flex-column flex-grow-1">
+          <p class="my-1 fw-semibold text-break">{{producto.nombre}} - <small>{{producto.cantidad}}</small></p>
+          <p class="my-1">{{ producto.precio | currency:'USD':'symbol' }}</p>
+          <div class="mt-auto">
+            <button class="btn_card" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              (click)="asignarProductoDetalle(producto)">
+              Ver detalles
+            </button>
           </div>
         </div>
       </div>
+    </div>
     }
   </div>
 </div>
@@ -33,16 +34,20 @@
             <img [src]="productoDetalle.urlImagen" alt="imagen-modal" class="img-modal">
           </div>
           <div class="col-md-5">
-          <h2 class="my-1 mb-3">{{productoDetalle.nombre}}</h2>
-          <h4 class="my-1 mb-3">{{productoDetalle.cantidad}}</h4>
-          <h4 class="my-1 mb-3">{{ productoDetalle.precio | currency:'USD':'symbol' }}</h4>
-          @if(productoDetalle.descripcion !== ''){
+            <h2 class="my-1 mb-3">{{productoDetalle.nombre}}</h2>
+            <h4 class="my-1 mb-3">{{productoDetalle.cantidad}}</h4>
+            <h4 class="my-1 mb-3">{{ productoDetalle.precio | currency:'USD':'symbol' }}</h4>
+            @if(productoDetalle.descripcion !== ''){
             <h5 class="my-1 mb-3">Información: {{productoDetalle.descripcion}}</h5>
-          }
-          <div class="input-group">
-            <input [formControl]="cantidad" type="number" class="form-control" placeholder="Cantidad" aria-label="cantidad" min="1" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary btn_modal" type="button" id="button-addon2" data-bs-dismiss="modal" [disabled]="cantidad.invalid" (click)="agregarAlCarrito(productoDetalle)">Agregar al carrito</button>
-          </div>
+            }
+            <div class="input-group">
+              <input [formControl]="cantidad" type="number" class="form-control" placeholder="Cantidad"
+                aria-label="cantidad" min="1" [max]="productoDetalle.stock" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary btn_modal" type="button" id="button-addon2"
+                data-bs-dismiss="modal" [disabled]="cantidad.invalid"
+                (click)="agregarAlCarrito(productoDetalle)">Agregar al carrito</button>
+            </div>
+            <p class="text-secondary"><small>En stock ({{productoDetalle.stock}} un)</small></p>
           </div>
         </div>
       </div>
