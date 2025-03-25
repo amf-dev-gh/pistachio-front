@@ -31,16 +31,3 @@
 .delete-icon{
   cursor: pointer;
 }
-
-.btn_modal{
-  background-color: white;
-  color: var(--verde-pistachio);
-  border: 2px solid var(--verde-pistachio);
-  margin: 0;
-  border-radius: 2px;
-}
-
-.btn_modal:hover{
-  background-color: var(--verde-pistachio);
-  color: white;
-}

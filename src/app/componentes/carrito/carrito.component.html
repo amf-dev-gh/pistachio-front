@@ -45,17 +45,31 @@
       </div>
       <div class="modal-body">
         <h2 class="my-1 mb-3 text-center">Total a abonar: {{total | currency:'USD':'symbol'}}</h2>
-        <label for="nombreCompleto" class="form-label">Nombre y apellido:</label>
-        <input [formControl]="nombreCompleto" type="text" class="form-control" placeholder="Nombre completo"
-          aria-label="Nombre completo" aria-describedby="button-addon2" id="nombreCompleto">
-          @if (nombreCompleto.invalid) {
-            <p class="text-danger m-0 ms-1"><small>Debe ingresar al menos un nombre y un apellido.</small></p>
-          }
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-outline-secondary btn_modal" type="submit" data-bs-dismiss="modal"
-            (click)="finalizarCompra()" [disabled]="nombreCompleto.invalid">Enviar</button>
-        </div>
+        <form [formGroup]="formDatos">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input formControlName="nombre" type="text" class="form-control" placeholder="Ingrese su nombre/s"
+              aria-label="Nombre cliente" aria-describedby="button-addon2" id="nombre">
+          </div>
+          <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input formControlName="apellido" type="text" class="form-control" placeholder="Ingrese su apellido/s"
+              aria-label="Apellido cliente" aria-describedby="button-addon2" id="apellido">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input formControlName="email" type="email" class="form-control" placeholder="Ingrese su email"
+              aria-label="email cliente" aria-describedby="button-addon2" id="email">
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input formControlName="telefono" type="tel" class="form-control" placeholder="Ingrese su teléfono"
+              aria-label="telefono cliente" aria-describedby="button-addon2" id="telefono">
+          </div>
+          <button class="btn_card" type="submit" data-bs-dismiss="modal"
+            (click)="finalizarCompra()" [disabled]="formDatos.invalid">Enviar</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

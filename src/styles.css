@@ -32,8 +32,7 @@
   border-radius: 3px;
 }
 
-.btn_card:hover,
-.btn_modal:hover {
+.btn_card:hover{
   background-color: var(--verde-pistachio);
   color: white;
 }

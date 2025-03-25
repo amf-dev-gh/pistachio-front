@@ -3,9 +3,11 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { ItemPedido } from '../../interfaces/itemPedido.interface';
 import { CommonModule } from '@angular/common';
 import { Producto } from '../../interfaces/producto.interface';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WhatsappService } from '../../servicios/whatsapp.service';
 import { Router } from '@angular/router';
+import { PedidoService } from '../../servicios/pedido.service';
+import { PedidoDTO } from '../../interfaces/pedido.interface';
 
 @Component({
   selector: 'app-carrito',
@@ -17,9 +19,16 @@ export class CarritoComponent implements OnInit {
 
   itemsCarrito: ItemPedido[] = [];
   total: number = 0
-  nombreCompleto = new FormControl('', [Validators.required, Validators.pattern(`^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9]+(?:\\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9]+){1,4}$`)]);
+  formDatos: FormGroup;
 
-  constructor(private carritoService: CarritoService, private whatsapService: WhatsappService, private router: Router) { }
+  constructor(private carritoService: CarritoService, private whatsapService: WhatsappService, private router: Router, private pedidoService: PedidoService, private fb: FormBuilder) {
+    this.formDatos = fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', Validators.required],
+      telefono: ['', Validators.required]
+    })
+  }
 
   ngOnInit(): void {
     this.carritoService.carrito$.subscribe(() => {
@@ -43,16 +52,35 @@ export class CarritoComponent implements OnInit {
   }
 
   finalizarCompra() {
-    const nombre = this.nombreCompleto.value || '';
-    if (nombre === '') {
-      console.log("No ha ingresado el nombre")
+    if (this.formDatos.invalid) {
+      console.log("Formulario inválido")
       return;
     }
-    const pedidoOK = confirm(`Generará un pedido a nombre de ${nombre} por un monto de $${this.carritoService.obtenerMontoTotal()}. ¿Son estos datos correctos?`)
+    const pedidoOK = confirm(`Generará un pedido a nombre de ${this.formDatos.get("nombre")?.value} por un monto de $${this.carritoService.obtenerMontoTotal()}. ¿Son estos datos correctos?`)
+    const itemsCarrito = this.carritoService.obtenerItemsCarrito();
     if (pedidoOK) {
-      this.whatsapService.enviarMensajeWhatsApp(nombre);
-      this.carritoService.vaciarCarrito();
-      this.router.navigate(['/inicio']);
+      const nuevoPedido: PedidoDTO = {
+        items: itemsCarrito.map(item => ({
+          productoId: item.producto.id,
+          cantidad: item.cantidad
+        })),
+        usuario: {
+          nombre: this.formDatos.get('nombre')?.value,
+          apellido: this.formDatos.get('apellido')?.value,
+          email: this.formDatos.get('email')?.value,
+          telefono: this.formDatos.get('telefono')?.value
+        }
+      };
+      console.log(nuevoPedido)
+      this.pedidoService.crearPedido(nuevoPedido).subscribe({
+        next: p => {
+          console.log("pedido generado", p);
+          this.whatsapService.enviarMensajeWhatsApp(this.formDatos.get("nombre")?.value);
+          this.carritoService.vaciarCarrito();
+          this.router.navigate(['/inicio']);
+        },
+        error: e => console.error("Error al crear pedido", e)
+      })
     }
   }
 }

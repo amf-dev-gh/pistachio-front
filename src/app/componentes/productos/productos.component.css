@@ -7,6 +7,13 @@
   background-color: white;
   color: var(--verde-pistachio);
   border: 2px solid var(--verde-pistachio);
+  border-radius: 3px;
+}
+
+.btn_modal:disabled {
+  color: var(--verde-pistachio-inactivo);
+  border: var(--verde-pistachio-inactivo);
+  border: 2px solid var(--verde-pistachio-inactivo);
 }
 
 .btn_modal:hover{
