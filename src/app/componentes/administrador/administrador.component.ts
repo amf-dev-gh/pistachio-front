@@ -6,6 +6,7 @@ import { BehaviorSubject, debounceTime, distinctUntilChanged, Subject } from 'rx
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Categoria } from '../../interfaces/categoria.interface';
 import { CategoriasService } from '../../servicios/categorias.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administrador',
@@ -121,25 +122,67 @@ export class AdministradorComponent implements OnInit {
       destacado: this.formProducto.get('destacado')?.value,
       stock: this.formProducto.get('stock')?.value
     };
+
     this.prodService.guardarProducto(producto).subscribe({
       next: r => {
-        alert(`Producto ${r.nombre} guardado/actualizado con éxito`);
+        Swal.fire({
+          title: '¡Producto guardado!',
+          text: `El producto "${r.nombre}" ha sido guardado/actualizado con éxito.`,
+          icon: 'success',
+          confirmButtonColor: '#00322B',
+          confirmButtonText: 'Aceptar',
+        });
         this.obtenerProductos();
       },
-      error: r => console.error("Error al guardar o actualizar producto")
+      error: () => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un problema al guardar o actualizar el producto.',
+          icon: 'error',
+          confirmButtonColor: '#a72b2b',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error("Error al guardar o actualizar producto");
+      }
     });
   }
 
+
   eliminarProducto(p: Producto) {
-    const eliminar = confirm(`Está seguro de eliminar ${p.nombre} X (${p.cantidad})?`)
-    if (eliminar) {
-      this.prodService.eliminarProducto(p.id).subscribe({
-        next: () => {
-          alert(`Producto ${p.nombre} eliminado con éxito`);
-          this.obtenerProductos();
-        },
-        error: e => console.error("El producto no existe en la BBDD", e)
-      })
-    }
+    Swal.fire({
+      title: '¿Eliminar producto?',
+      text: `Está seguro de eliminar ${p.nombre} X (${p.cantidad})?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#a72b2b',
+      cancelButtonColor: '#00322B',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.prodService.eliminarProducto(p.id).subscribe({
+          next: () => {
+            Swal.fire({
+              title: '¡Producto eliminado!',
+              text: `El producto "${p.nombre}" ha sido eliminado con éxito.`,
+              icon: 'success',
+              confirmButtonColor: '#00322B',
+              confirmButtonText: 'Aceptar',
+            });
+            this.obtenerProductos();
+          },
+          error: e => {
+            Swal.fire({
+              title: 'Error',
+              text: 'El producto no existe en la BBDD o no se pudo eliminar.',
+              icon: 'error',
+              confirmButtonColor: '#a72b2b',
+              confirmButtonText: 'Aceptar',
+            });
+            console.error("El producto no existe en la BBDD", e);
+          }
+        });
+      }
+    });
   }
 }

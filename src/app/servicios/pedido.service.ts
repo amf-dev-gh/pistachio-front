@@ -19,9 +19,8 @@ export class PedidoService {
     return this.http.post<any>(`${this.apiUrl}`, pedido);
   }
 
-  //Por ver....
-  actualizarEstadoPedido(id: number, nuevoEstado: string): Observable<Pedido> {
-    return this.http.put<Pedido>(`${this.apiUrl}/${id}/estado`, nuevoEstado, {
+  actualizarEstadoPedido(id: number, nuevoEstado: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}/estado`, nuevoEstado, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
