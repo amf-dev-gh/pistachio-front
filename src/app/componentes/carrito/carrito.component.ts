@@ -71,11 +71,9 @@ export class CarritoComponent implements OnInit {
           telefono: this.formDatos.get('telefono')?.value
         }
       };
-      console.log(nuevoPedido)
       this.pedidoService.crearPedido(nuevoPedido).subscribe({
         next: p => {
-          console.log("pedido generado", p);
-          this.whatsapService.enviarMensajeWhatsApp(this.formDatos.get("nombre")?.value);
+          this.whatsapService.enviarMensajeWhatsApp(this.formDatos.get("nombre")?.value, p.numeroPedido);
           this.carritoService.vaciarCarrito();
           this.router.navigate(['/inicio']);
         },
