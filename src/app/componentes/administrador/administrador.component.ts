@@ -47,9 +47,10 @@ export class AdministradorComponent implements OnInit {
       )
       .subscribe((texto) => {
         const productosFiltrados = this.productos.filter((p) =>
-          // Filtra por nombre y descripcion...
+          // Filtra por nombre, descripcion y por nombre de categoría.
           p.nombre.toLowerCase().includes(texto.toLowerCase()) ||
-          p.descripcion.toLowerCase().includes(texto.toLowerCase())
+          p.descripcion.toLowerCase().includes(texto.toLowerCase()) ||
+          p.categoria.nombre.toLowerCase().includes(texto.toLowerCase())
         );
         this.productosFiltrados$.next(productosFiltrados);
       });

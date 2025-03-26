@@ -2,7 +2,7 @@
   background-color: white;
   padding: 1rem;
   border-radius: 3px;
-  box-shadow: 0px 0px 4px 1px var(--verde-pistachio);
+  box-shadow: 0px 5px 10px 0px var(--verde-pistachio);
 }
 
 .img-formulario {
@@ -21,7 +21,7 @@
 }
 
 @media(max-width: 600px) {
-  .contenedor-form{
+  .contenedor-form {
     width: 100%;
   }
 }

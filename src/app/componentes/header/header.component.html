@@ -1,49 +1,65 @@
 <header class="sticky-top">
   @if (!esAdmin) {
   <nav class="navbar navbar-expand-lg py-0">
-    <div class="container py-2">
-      <a class="navbar-brand" href="#"><img src="logo-pistachio.webp" alt="imagen-logo" class="img-nav"> PISTACHIO - Tu
-        mix natural</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="container py-2 d-flex align-items-center position-relative">
+
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="logo-pistachio.webp" alt="imagen-logo" class="img-nav me-2">
+        <span>PISTACHIO - Tu mix natural</span>
+      </a>
+
+      <!-- Botón de navegación en móviles -->
+      <button class="navbar-toggler position-absolute end-0 top-0 m-2 mt-3 d-lg-none" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Barra de búsqueda -->
+      <form class="d-flex flex-grow-1 mx-3 search-container">
+        <input type="text" class="search-input form-control" placeholder="Buscar" [formControl]="filtro">
+        <button class="search-button btn btn-outline-secondary ms-2" [disabled]="filtro.value === ''"
+          (click)="buscarProductos()">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+
+      <!-- Contenido del navbar -->
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0 m-auto">
-          <form class="d-flex">
-            <div class="search-container">
-              <input type="text" class="search-input" placeholder="Buscar" [formControl]="filtro">
-              <button class="search-button" [disabled]="filtro.value === ''" (click)="buscarProductos()">
-                <i class="bi bi-search text-secondary"></i>
-              </button>
-            </div>
-          </form>
-        </ul>
+        <!-- Categorías -->
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categorías
           </a>
           <ul class="dropdown-menu">
             @for (categoria of categorias; track $index) {
-            <li><a class="dropdown-item nav-category" [routerLink]="'/categorias/' + categoria.id"
+            <li>
+              <a class="dropdown-item nav-category" [routerLink]="'/categorias/' + categoria.id"
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 {{ categoria.nombre }}
-              </a></li>
+              </a>
+            </li>
             }
           </ul>
         </div>
+
+        <!-- Carrito o Cerrar sesión -->
         @if (!esAdmin) {
         <div>
-          <p class="m-0"><a routerLink="/carrito" class="nav-link" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"><i class="bi bi-cart me-1 position-relative">
+          <p class="m-0">
+            <a routerLink="/carrito" class="nav-link" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent">
+              <i class="bi bi-cart me-1 position-relative">
                 @if (cantidadCarrito !== 0) {
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   {{cantidadCarrito}}
-                  <span class="visually-hidden">unread messages</span>
                 </span>
                 }
               </i>
-              {{ totalCarrito | currency:'USD':'symbol' }}</a></p>
+              {{ totalCarrito | currency:'USD':'symbol' }}
+            </a>
+          </p>
         </div>
         }
         @else {
@@ -52,7 +68,9 @@
       </div>
     </div>
   </nav>
-  <nav class="container d-flex justify-content-evenly align-items-center py-2 flex-wrap gap-2 nav_links_cat">
+
+  <!-- Navegación de categorías -->
+  <nav class="container d-flex justify-content-center flex-wrap py-2 gap-2 nav_links_cat">
     @for (categoria of categorias; track $index) {
     <p class="m-0">
       <a class="nav-link nav-category mx-2" [routerLink]="'/categorias/' + categoria.id">
@@ -61,11 +79,13 @@
     </p>
     }
   </nav>
+
   }
   @else{
   <nav class="navbar navbar-expand-lg py-0">
     <div class="container py-2">
-      <a class="navbar-brand" routerLink="/administrador"><img src="logo-pistachio.webp" alt="imagen-logo" class="img-nav"> PISTACHIO - (ADMIN)</a>
+      <a class="navbar-brand" routerLink="/administrador"><img src="logo-pistachio.webp" alt="imagen-logo"
+          class="img-nav"> PISTACHIO - (ADMIN)</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

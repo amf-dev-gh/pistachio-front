@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ItemPedido } from '../interfaces/itemPedido.interface';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -25,17 +26,45 @@ export class CarritoService {
   agregarAlCarrito(item: ItemPedido): void {
     const carritoActual = this.carrito.value;
     const indice = carritoActual.findIndex(i => i.producto.id === item.producto.id);
-
+  
     if (indice !== -1) {
-      // Si el producto ya está en el carrito solo actualiza la cantidad
-      carritoActual[indice].cantidad += item.cantidad;
+      // Validar si al agregar la nueva cantidad supera el stock disponible
+      const nuevaCantidad = carritoActual[indice].cantidad + item.cantidad;
+      if (nuevaCantidad > item.producto.stock) {
+        Swal.fire({
+          title: 'Stock insuficiente',
+          text: `Solo hay ${item.producto.stock} unidades disponibles de ${item.producto.nombre}.`,
+          icon: 'warning',
+          confirmButtonText: 'Entendido'
+        });
+        return;
+      }
+      carritoActual[indice].cantidad = nuevaCantidad;
     } else {
+      // Validar si la cantidad inicial supera el stock disponible
+      if (item.cantidad > item.producto.stock) {
+        Swal.fire({
+          title: 'Stock insuficiente',
+          text: `Solo hay ${item.producto.stock} unidades disponibles de ${item.producto.nombre}.`,
+          icon: 'warning',
+          confirmButtonText: 'Entendido'
+        });
+        return;
+      }
       carritoActual.push(item);
     }
-
     this.carrito.next([...carritoActual]);
     this.guardarCarritoEnStorage();
+    // Confirmación de producto agregado
+    Swal.fire({
+      title: '¡Producto agregado!',
+      text: `${item.producto.nombre} ha sido agregado al carrito.`,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
+  
 
   eliminarDelCarrito(idProducto: number): void {
     const carritoActualizado = this.carrito.value.filter(item => item.producto.id !== idProducto);

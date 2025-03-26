@@ -64,7 +64,7 @@ export class ProductosComponent implements OnInit {
   obtenerProductosDestacados() {
     this.prodService.listarProductos().subscribe({
       next: datos => {
-        this.productos = datos.filter(p => p.destacado && p.stock > 0);
+        this.productos = datos.filter(p => p.destacado);
         this.titulo = 'Productos destacados';
       },
       error: e => {
@@ -94,7 +94,7 @@ export class ProductosComponent implements OnInit {
     }
     this.prodService.buscarProductos(nombre).subscribe({
       next: productos => {
-        this.productos = productos.filter(p => p.stock > 0);
+        this.productos = productos;
         this.titulo = `Productos encontrados para "${nombre}"`;
       },
       error: e => {
@@ -107,12 +107,12 @@ export class ProductosComponent implements OnInit {
   cargarProductosPorCategoria(categoriaId: number) {
     this.prodService.listarProductosPorCategoria(categoriaId).subscribe({
       next: datos => {
-        this.productos = datos.filter(p => p.stock > 0);
+        this.productos = datos;
         if (this.productos.length !== 0) {
           const nombreCategoria = this.productos[0].categoria?.nombre;
           this.titulo = `${nombreCategoria}`;
         } else {
-          this.titulo = 'No existe categoría';
+          this.titulo = 'No hay stock disponible';
         }
       },
       error: e => {
@@ -126,11 +126,10 @@ export class ProductosComponent implements OnInit {
   }
 
   agregarAlCarrito(producto: Producto) {
-    const cantidad = this.cantidad.value
     const item: ItemPedido = {
       producto: producto,
       cantidad: this.cantidad.value || 0
-    }
+    };
     this.carritoService.agregarAlCarrito(item);
     this.cantidad.setValue(1);
   }

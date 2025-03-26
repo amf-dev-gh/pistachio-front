@@ -47,7 +47,9 @@
                 data-bs-dismiss="modal" [disabled]="cantidad.invalid"
                 (click)="agregarAlCarrito(productoDetalle)">Agregar al carrito</button>
             </div>
-            <p class="text-secondary"><small>En stock ({{productoDetalle.stock}} un)</small></p>
+            <p class="text-secondary" [ngClass]="{'text-danger': productoDetalle.stock === 0}">
+              <small>En stock ({{ productoDetalle.stock }} un)</small>
+            </p>
           </div>
         </div>
       </div>

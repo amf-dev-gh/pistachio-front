@@ -6,7 +6,7 @@
 }
 
 .contenedor-minimo {
-  min-height: 67.5vh;
+  min-height: 66vh;
 }
 
 .card-producto {
@@ -50,7 +50,7 @@
 @media(max-width: 1000px) {
 
   .contenedor-minimo {
-    min-height: 77vh;
+    min-height: 70vh;
   }
 
 }

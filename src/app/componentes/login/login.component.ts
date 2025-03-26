@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../servicios/auth.service';
 import { CredencialesLogin } from '../../interfaces/login.interface';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent {
 
   formLogin: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router:Router) {
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -22,14 +24,36 @@ export class LoginComponent {
   }
 
   iniciarSesion() {
-    const credenciales:CredencialesLogin = {
+    const credenciales: CredencialesLogin = {
       email: this.formLogin.get('email')?.value,
       password: this.formLogin.get('password')?.value
     };
+
     this.authService.login(credenciales).subscribe({
-      next: r => this.router.navigate(['/administrador']),
-      error: e => console.error('Error en la autenticacion', e)
-    })
+      next: () => {
+        Swal.fire({
+          title: 'Inicio de sesión exitoso',
+          text: 'Redirigiendo...',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          confirmButtonColor: '#00322B'
+        });
+
+        this.router.navigate(['/administrador']);
+      },
+      error: (e) => {
+        console.error('Error en la autenticación', e);
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonText: 'Intentar de nuevo',
+          confirmButtonColor: '#00322B',
+        });
+      }
+    });
   }
+
 
 }
