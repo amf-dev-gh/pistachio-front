@@ -6,7 +6,7 @@ import { CarritoService } from './carrito.service';
 })
 export class WhatsappService {
 
-  private numeroWhatsapPistachio: string = '5493515956333';
+  private numeroWhatsapPistachio: string = '5492996357610';
 
   constructor(private carritoService: CarritoService) { }
 

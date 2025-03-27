@@ -14,7 +14,7 @@ export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
   const rutasProtegidas = [
     'http://localhost:8080/api/productos/guardar',
     'http://localhost:8080/api/productos/eliminar/',
-    'http://localhost:8080/api/pedidos/listar'
+    'http://localhost:8080/api/pedidos/'
   ];
   // Verificar si la solicitud debe llevar el token
   const requiereAuth = rutasProtegidas.some(url => req.url.startsWith(url));

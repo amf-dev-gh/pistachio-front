@@ -12,11 +12,16 @@
 .card-producto {
   width: 100%;
   border-radius: 3px;
+  box-shadow: 0 2px 7px 0 black;
   border: 1px solid #ccc;
 }
 
 .card-producto_info {
   padding: 0.5rem;
+}
+
+.card-producto:hover {
+  scale: 1.01;
 }
 
 .link-card {

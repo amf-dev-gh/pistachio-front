@@ -81,5 +81,52 @@ export class PedidosComponent implements OnInit {
     });
   }
   
+  cancelarPedido(){
+    Swal.fire({
+      title: 'Cancelar pedido?',
+      text: `Se cancelará el pedido nº: ${this.pedidoSeleccionado.numeroPedido} y no se podrá revertir. ¿Confirma?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cambiar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#00322B',
+      cancelButtonColor: '#a72b2b',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevoEstado = 'CANCELADO';
+        const idPedido = Number(this.pedidoSeleccionado.id);
+  
+        this.pedidoService.actualizarEstadoPedido(idPedido, nuevoEstado).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Pedido cancelado!',
+              text: `El pedido nº ${this.pedidoSeleccionado.numeroPedido} ahora está ${nuevoEstado}.`,
+              icon: 'success',
+              confirmButtonColor: '#00322B',
+              confirmButtonText: 'Aceptar'
+            });
+            this.obtenerPedidos();
+          },
+          error: e => {
+            Swal.fire('Error', `No se pudo cancelar el pedido nº ${this.pedidoSeleccionado.numeroPedido}.`, 'error');
+            console.error(`Error al actualizar pedido ${this.pedidoSeleccionado.numeroPedido}`, e);
+          }
+        });
+      }
+    });
+  }
+
+  colorEstado(producto:Pedido): string {
+    switch (producto.estado) {
+      case 'ENTREGADO':
+        return 'text-success';
+      case 'PENDIENTE':
+        return 'text-warning';
+      case 'CANCELADO':
+        return 'text-danger';
+      default:
+        return '';
+    }
+  }
 
 }

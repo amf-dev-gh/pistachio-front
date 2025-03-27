@@ -19,7 +19,7 @@
             {{ p.usuario.nombre }} ({{ p.usuario.email }})
           </td>
           <td>{{ p.total | currency:'USD':'symbol' }}</td>
-          <td>{{ p.estado }}</td>
+          <td [ngClass]="colorEstado(p)">{{ p.estado }}</td>
           <td>
             <span class="m-1 accion-link" data-bs-toggle="modal" data-bs-target="#modalPedido" (click)="verPedido(p)">
               <i class="bi bi-search"></i>
@@ -50,10 +50,15 @@
 <!-- Modal -->
 <div class="modal fade" id="modalPedido" tabindex="-1" aria-labelledby="modalPedidoLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content position-relative">
+      <!-- Mensaje CANCELADO en diagonal -->
+      <div *ngIf="pedidoSeleccionado.estado === 'CANCELADO'" class="cancelado-banner">
+        CANCELADO
+      </div>
+
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalPedidoLabel">Pedido: {{pedidoSeleccionado.numeroPedido}}
-          ({{pedidoSeleccionado.estado}})</h1>
+          <span [ngClass]="colorEstado(pedidoSeleccionado)">({{pedidoSeleccionado.estado}})</span></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -70,9 +75,13 @@
           <h5 class="text-decoration-underline mb-1">Total</h5>
           <h5 class="mb-1">{{pedidoSeleccionado.total | currency:'USD':'symbol'}}</h5>
         </div>
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn_card col-5" data-bs-dismiss="modal" (click)="cambiarEstado()">Cambiar
-            estado</button>
+        <div class="d-flex justify-content-center gap-2" *ngIf="pedidoSeleccionado.estado !== 'CANCELADO'">
+          <button type="button" class="btn_card col-5" data-bs-dismiss="modal" (click)="cambiarEstado()">
+            Cambiar estado
+          </button>
+          <button type="button" class="btn_card col-5 btn-cancel" data-bs-dismiss="modal" (click)="cancelarPedido()">
+            Cancelar pedido
+          </button>
         </div>
       </div>
     </div>
