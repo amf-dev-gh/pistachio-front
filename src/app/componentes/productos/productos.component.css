@@ -25,3 +25,19 @@
   width: 100%;
   border-radius: 3px;
 }
+
+.modal.fade .modal-dialog {
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal.fade:not(.show) .modal-dialog {
+  transform: scale(0.8);
+  opacity: 0;
+}
