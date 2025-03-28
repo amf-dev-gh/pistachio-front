@@ -14,10 +14,11 @@ import { FormsModule } from '@angular/forms';
 export class PedidosComponent implements OnInit {
 
   pedidos: Pedido[] = [];
-  pedidosFiltrados: any[] = [];
+  pedidosFiltrados: Pedido[] = [];
   pedidoSeleccionado: Pedido = {
     id: null,
     numeroPedido: '',
+    fecha: '',
     usuario: {
       nombre: '',
       apellido: '',
@@ -35,11 +36,12 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPedidos();
   }
-  
+
   obtenerPedidos() {
     this.pedidoService.listarPedidos().subscribe({
       next: pedidos => {
         this.pedidos = pedidos;
+        console.log(pedidos)
         this.pedidosFiltrados = [...this.pedidos];
       },
       error: e => console.error("Error al obtener pedidos", e)
@@ -64,7 +66,7 @@ export class PedidosComponent implements OnInit {
       if (result.isConfirmed) {
         const nuevoEstado = this.pedidoSeleccionado.estado === 'PENDIENTE' ? 'ENTREGADO' : 'PENDIENTE';
         const idPedido = Number(this.pedidoSeleccionado.id);
-  
+
         this.pedidoService.actualizarEstadoPedido(idPedido, nuevoEstado).subscribe({
           next: () => {
             Swal.fire({
@@ -84,8 +86,8 @@ export class PedidosComponent implements OnInit {
       }
     });
   }
-  
-  cancelarPedido(){
+
+  cancelarPedido() {
     Swal.fire({
       title: 'Cancelar pedido?',
       text: `Se cancelará el pedido nº: ${this.pedidoSeleccionado.numeroPedido} y no se podrá revertir. ¿Confirma?`,
@@ -99,7 +101,7 @@ export class PedidosComponent implements OnInit {
       if (result.isConfirmed) {
         const nuevoEstado = 'CANCELADO';
         const idPedido = Number(this.pedidoSeleccionado.id);
-  
+
         this.pedidoService.actualizarEstadoPedido(idPedido, nuevoEstado).subscribe({
           next: () => {
             Swal.fire({
@@ -119,7 +121,7 @@ export class PedidosComponent implements OnInit {
       }
     });
   }
-  
+
   buscarPedidos() {
     const filtro = this.filtroCliente.toLowerCase();
     this.pedidosFiltrados = this.pedidos.filter(pedido =>
@@ -128,7 +130,7 @@ export class PedidosComponent implements OnInit {
     );
   }
 
-  colorEstado(producto:Pedido): string {
+  colorEstado(producto: Pedido): string {
     switch (producto.estado) {
       case 'ENTREGADO':
         return 'text-success';

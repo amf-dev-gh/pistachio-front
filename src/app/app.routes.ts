@@ -7,6 +7,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { loginGuard } from './guards/login.guard';
 import { PedidosComponent } from './componentes/administrador/pedidos/pedidos.component';
+import { VentasComponent } from './componentes/administrador/ventas/ventas.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'administrador', component: AdministradorComponent, canActivate: [authGuard] },
   { path: 'administrador/productos', component: AdministradorComponent, canActivate: [authGuard] },
   { path: 'administrador/pedidos', component: PedidosComponent, canActivate: [authGuard] },
+  { path: 'administrador/ventas', component: VentasComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: 'inicio' }
 ];

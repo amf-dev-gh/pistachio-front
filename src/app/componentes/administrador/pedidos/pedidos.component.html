@@ -1,4 +1,4 @@
-<div class="container-fluid" style="min-height: 77.5vh;">
+<div class="container-fluid  container-min-admin">
   <h3>Pedidos</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-2 filtro-producto">
@@ -14,6 +14,7 @@
       <thead>
         <tr class="text-center">
           <th>N° Pedido</th>
+          <th>Fecha</th>
           <th>Cliente</th>
           <th>Total</th>
           <th>Estado</th>
@@ -23,6 +24,7 @@
       <tbody>
         <tr class="text-center" *ngFor="let p of pedidosFiltrados">
           <td>{{ p.numeroPedido }}</td>
+          <td>{{ p.fecha }}</td>
           <td class="text-truncate" style="max-width: 200px;" title="{{p.usuario.nombre}} ({{p.usuario.email}})">
             {{ p.usuario.nombre }} ({{ p.usuario.email }})
           </td>

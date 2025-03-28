@@ -4,6 +4,7 @@ import { UsuarioDto } from "./usuario.interface";
 export interface Pedido {
   id: number | null,
   numeroPedido: string,
+  fecha: string,
   usuario: UsuarioDto,
   items: ItemPedido[],
   total: number,
