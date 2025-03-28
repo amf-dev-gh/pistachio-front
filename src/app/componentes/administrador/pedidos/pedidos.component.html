@@ -1,6 +1,14 @@
 <div class="container-fluid" style="min-height: 77.5vh;">
   <h3>Pedidos</h3>
 
+  <div class="d-flex justify-content-between align-items-center mb-2 filtro-producto">
+    <div class="d-flex align-items-center">
+      <label for="nombreCliente" class="me-2">Filtrar por cliente:</label>
+      <input type="text" placeholder="Buscar cliente..." class="form-control" [(ngModel)]="filtroCliente"
+        (ngModelChange)="buscarPedidos()" id="nombreCliente" />
+    </div>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-sm table-striped table-hover">
       <thead>
@@ -13,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="text-center" *ngFor="let p of pedidos">
+        <tr class="text-center" *ngFor="let p of pedidosFiltrados">
           <td>{{ p.numeroPedido }}</td>
           <td class="text-truncate" style="max-width: 200px;" title="{{p.usuario.nombre}} ({{p.usuario.email}})">
             {{ p.usuario.nombre }} ({{ p.usuario.email }})
@@ -58,7 +66,8 @@
 
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalPedidoLabel">Pedido: {{pedidoSeleccionado.numeroPedido}}
-          <span [ngClass]="colorEstado(pedidoSeleccionado)">({{pedidoSeleccionado.estado}})</span></h1>
+          <span [ngClass]="colorEstado(pedidoSeleccionado)">({{pedidoSeleccionado.estado}})</span>
+        </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

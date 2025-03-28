@@ -3,16 +3,18 @@ import { PedidoService } from '../../../servicios/pedido.service';
 import { Pedido } from '../../../interfaces/pedido.interface';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2'
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pedidos',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.css'
 })
 export class PedidosComponent implements OnInit {
 
   pedidos: Pedido[] = [];
+  pedidosFiltrados: any[] = [];
   pedidoSeleccionado: Pedido = {
     id: null,
     numeroPedido: '',
@@ -26,17 +28,19 @@ export class PedidosComponent implements OnInit {
     total: 0,
     estado: ''
   }
+  filtroCliente: string = '';
 
   constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
     this.obtenerPedidos();
   }
-
+  
   obtenerPedidos() {
     this.pedidoService.listarPedidos().subscribe({
       next: pedidos => {
         this.pedidos = pedidos;
+        this.pedidosFiltrados = [...this.pedidos];
       },
       error: e => console.error("Error al obtener pedidos", e)
     })
@@ -114,6 +118,14 @@ export class PedidosComponent implements OnInit {
         });
       }
     });
+  }
+  
+  buscarPedidos() {
+    const filtro = this.filtroCliente.toLowerCase();
+    this.pedidosFiltrados = this.pedidos.filter(pedido =>
+      pedido.usuario.nombre.toLowerCase().includes(filtro) ||
+      pedido.usuario.email.toLowerCase().includes(filtro)
+    );
   }
 
   colorEstado(producto:Pedido): string {
