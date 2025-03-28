@@ -10,10 +10,17 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private apiUrl: string = 'http://localhost:8080/api/auth';
+  private inactividadTimer: any;
+  private tiempoInactividad = 10 * 60 * 1000; // 10 min
   private esAdminSubject = new BehaviorSubject<boolean>(this.calcularEsAdmin());
   esAdmin$ = this.esAdminSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.detectarActividad();
+    window.addEventListener('beforeunload', () => {
+      localStorage.clear();
+    });
+   }
 
   login(credenciales: CredencialesLogin): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credenciales).pipe(
@@ -57,6 +64,20 @@ export class AuthService {
   private calcularEsAdmin(): boolean {
     const usuario = this.obtenerUsuario();
     return !!usuario && usuario.rol === 'ADMIN';
+  }
+
+  private detectarActividad() {
+    document.addEventListener('mousemove', () => this.reiniciarTemporizador());
+    document.addEventListener('keydown', () => this.reiniciarTemporizador());
+    document.addEventListener('click', () => this.reiniciarTemporizador());
+    this.reiniciarTemporizador();
+  }
+
+  private reiniciarTemporizador() {
+    clearTimeout(this.inactividadTimer);
+    this.inactividadTimer = setTimeout(() => {
+      this.logout();
+    }, this.tiempoInactividad);
   }
 
 }
