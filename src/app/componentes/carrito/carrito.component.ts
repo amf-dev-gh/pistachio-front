@@ -93,7 +93,7 @@ export class CarritoComponent implements OnInit {
 
   finalizarCompra() {
     if (this.formDatos.invalid) {
-      console.log("Formulario inválido");
+      console.error("Formulario inválido");
       return;
     }
   

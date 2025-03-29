@@ -54,10 +54,8 @@ export class VentasComponent implements OnInit {
       fechaFin: this.filtroForm.get('fechaFin')?.value
     };
     if (consulta.fechaInicio) {
-      console.log("filtrar por producto y fecha");
       this.listarVentaPorProductoYFecha(consulta);
     } else {
-      console.log("filtrar por producto");
       this.listarVentasPorProducto(consulta.idProducto);
     }
   }
