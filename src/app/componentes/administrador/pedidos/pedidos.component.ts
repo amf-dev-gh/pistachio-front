@@ -41,7 +41,6 @@ export class PedidosComponent implements OnInit {
     this.pedidoService.listarPedidos().subscribe({
       next: pedidos => {
         this.pedidos = pedidos;
-        console.log(pedidos)
         this.pedidosFiltrados = [...this.pedidos];
       },
       error: e => console.error("Error al obtener pedidos", e)
