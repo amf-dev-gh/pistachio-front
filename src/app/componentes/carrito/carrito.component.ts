@@ -3,7 +3,7 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { ItemPedido } from '../../interfaces/itemPedido.interface';
 import { CommonModule } from '@angular/common';
 import { Producto } from '../../interfaces/producto.interface';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WhatsappService } from '../../servicios/whatsapp.service';
 import { Router } from '@angular/router';
 import { PedidoService } from '../../servicios/pedido.service';
@@ -26,9 +26,13 @@ export class CarritoComponent implements OnInit {
     this.formDatos = fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      email: ['', Validators.required],
-      telefono: ['', Validators.required]
-    })
+      email: ['', [Validators.required, Validators.email]],
+      telefono: ['', [
+        Validators.required,
+        Validators.pattern(/^3\d{9}$/)
+      ]]
+    });
+    
   }
 
   ngOnInit(): void {
