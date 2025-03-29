@@ -9,6 +9,11 @@ export interface VentaProducto {
 
 export interface ConsultaVentaDto {
   idProducto: number,
-  fehchaInicio: string,
+  fechaInicio: string,
   fechaFin: string
+}
+
+export interface VentaResponseDto {
+  nombreProducto: string,
+  cantidad: number
 }

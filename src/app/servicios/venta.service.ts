@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ConsultaVentaDto, VentaProducto } from '../interfaces/venta.interface';
+import { ConsultaVentaDto, VentaProducto, VentaResponseDto } from '../interfaces/venta.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,18 @@ export class VentaService {
     return this.http.get<VentaProducto[]>(`${this.apiUrl}/`);
   }
 
-  // Metodo para obtener la cantidad total vendida de un producto
-  obtenerCantidadVendidaPorProducto(idProducto: number): Observable<VentaProducto[]> {
+  // Metodo para obtener la ventas totales de un producto
+  obtenerVentasPorProducto(idProducto: number): Observable<VentaProducto[]> {
     return this.http.get<VentaProducto[]>(`${this.apiUrl}/producto/${idProducto}`);
   }
 
   // Metodo para obtener las ventas de un producto por fecha
   obtenerVentasPorProductoYFecha(consulta: ConsultaVentaDto): Observable<VentaProducto[]> {
     return this.http.post<VentaProducto[]>(`${this.apiUrl}/producto/fecha`, consulta);
+  }
+
+  // Metodo para obtener el ranking de ventas por producto.
+  obtenerRankingDeVentas(): Observable<VentaResponseDto[]> {
+    return this.http.get<VentaResponseDto[]>(`${this.apiUrl}/ranking`);
   }
 }

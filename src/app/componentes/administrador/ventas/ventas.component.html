@@ -1,35 +1,51 @@
 <div class="container-fluid container-min-admin">
-  <h3>Pedidos</h3>
+  <h3>Análisis de ventas</h3>
 
   <div class="d-flex justify-content-between align-items-center mb-2 filtro-producto">
-    <div class="d-flex align-items-center">
-      <form [formGroup]="filtroForm" (ngSubmit)="filtrarVentas()" class="d-flex align-items-center">
-  
-        <label for="idProducto" class="me-2 mb-0">Producto:</label>
-        <select id="idProducto" formControlName="idProducto" class="form-select me-2 mb-0" style="max-width: 200px;">
-          <option value="" disabled selected>- Seleccionar producto -</option>
-          <option *ngFor="let producto of productos" [value]="producto.id">{{producto.nombre}}  x ({{producto.cantidad}})</option>
-        </select>
-  
-        <label for="fechaInicio" class="me-2 mb-0">Desde:</label>
-        <input type="date" formControlName="fechaInicio" class="form-control me-2 mb-0" id="fechaInicio" style="max-width: 160px;" />
-  
-        <label for="fechaFin" class="me-2 mb-0">Hasta:</label>
-        <input type="date" formControlName="fechaFin" class="form-control me-2 mb-0" id="fechaFin" style="max-width: 160px;" />
-  
-        <button type="submit" class="btn_card me-2" [disabled]="filtroForm.invalid">Filtrar</button>
-        <button type="button" class="btn_card me-2" (click)="quitarFiltro()">Quitar filtro</button>
+    <div class="w-100">
+      <form [formGroup]="filtroForm" (ngSubmit)="filtrarVentas()" class="row g-2">
+        
+        <div class="col-12 col-md-3 d-flex align-items-center">
+          <label for="idProducto" class="me-2 mb-0 col-3 col-md-auto">Producto:</label>
+          <select id="idProducto" formControlName="idProducto" class="form-select mb-0">
+            <option value="" disabled selected>- Seleccionar producto -</option>
+            <option *ngFor="let producto of productos" [value]="producto.id">
+              {{producto.nombre}} x ({{producto.cantidad}})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3 d-flex align-items-center">
+          <label for="fechaInicio" class="me-2 mb-0 col-3">Desde:</label>
+          <input type="date" formControlName="fechaInicio" class="form-control me-auto mb-0" id="fechaInicio"/>
+        </div>
+
+        <div class="col-12 col-md-3 d-flex align-items-center">
+          <label for="fechaFin" class="me-2 mb-0  col-3">Hasta:</label>
+          <input type="date" formControlName="fechaFin" class="form-control me-auto mb-0" id="fechaFin" [max]="fechaActual"/>
+        </div>
+
+        <div class="col-12 col-md-3 d-flex align-items-center">
+          <button type="submit" class="btn_card me-2" [disabled]="filtroForm.invalid">Filtrar</button>
+          <button type="button" class="btn_card" (click)="quitarFiltro()">Borrar filtro</button>
+        </div>
+
       </form>
     </div>
   </div>
-  
+
+  <div class="d-flex">
+    <button class="btn_card col-md-auto col-12" (click)="listarRanking()">
+      <i class="bi bi-filetype-pdf"></i>
+      Ventas por producto</button>
+  </div>
 
   <div class="table-responsive">
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr class="text-center">
           <th>Producto</th>
-          <th>Info. prod.</th>
+          <th class="col-2 text-truncate">Info. prod.</th>
           <th>Cantidad vendida</th>
           <th>Fecha</th>
         </tr>
@@ -37,7 +53,9 @@
       <tbody>
         <tr class="text-center" *ngFor="let v of ventas">
           <td>{{v.producto.nombre}} x ({{v.producto.cantidad}})</td>
-          <td>{{v.producto.descripcion}}</td>
+          <td class="text-truncate" style="max-width: 80px; overflow: hidden; white-space: nowrap;">
+            {{v.producto.descripcion}}
+          </td>
           <td>{{v.cantidadVendida}}</td>
           <td>{{v.fechaVenta | date:'yyyy-MM-dd'}}</td>
         </tr>
