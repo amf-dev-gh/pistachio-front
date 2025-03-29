@@ -1,19 +1,27 @@
-# Pistachio - Tu mix natural
+<h1>&copy;PISTACHIO - Tu mix natural</h1>
 
-## Aplicación web para generar pedidos
+<h3><em>Diseñado en IDE VSC utilizando Angular como framework de front-end y SpringBoot para el back-end. Con herramientas como MySQL, Hibernate para la conexión a bases de datos, JWT y Spring Security para la autenticacion y protección de datos y SweetAlert2 y JsPfd para alertas, confirmaciones y generación de archivo PDF</em></h3>
 
-### Herramientas utilizadas
+<p># Funcionalidad principal: filtrar y ver productos con sus caracteristicas y poder hacer pedidos, que por el momento se gestionan en una bse de datos y como extra genera un mensaje para enviar por Whatsapp con el numero de pedido generado y productos.</p>
 
-Hasta el momento la aplicación esta construida con Angular y consume un archivo JSON para obtener productos y poder generar los pedidos.
+<p># Tiene en cuenta stocks dispoibles</p>
 
-Localmente estoy consumiendo una API REST creada con SpringBoot la cual intentare desplegar proximamente.
+<p># Funcionalidad para loguearse como administrador y poder gestionar la tienda</p>
 
-Este y algunos proyectos mas los podrá encontrar en mi web personal [amf-dev.site](https://amf-dev.site/inicio)
+**Como ADMIN:**
+- Ver información de los productos y gestionarlos
+- Filtrar pedidos y ver su informacion con posibilidad de cancelarlos o cambiar los estados del mismo
+- Analizar ventas. Tanto por producto como por producto y fecha para tener ideas generales.
 
-### Resources
+**Extra**:
+- Generar archivo PDF con el ranking de ventas por producto histórico.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+<br/>
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+<p>Repo front-end: <a href="https://github.com/amf-dev-gh/pistachio-front/tree/main">Pistachio (ANGULAR)</a></p>
+<p>Repo back-end: <a href="https://github.com/amf-dev-gh/pistachio-back">Pistachio (SpringBoot)</a></p>
+
+<hr/>
+<p>Creador: Andres Mariano Fernández -> <a href="https://amf-dev.site/inicio">amf-dev.site</a></p>
+<p>Año: 2025</p>
