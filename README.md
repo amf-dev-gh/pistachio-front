@@ -1,27 +1,51 @@
-<h1>&copy;PISTACHIO - Tu mix natural</h1>
+# 🥜 PISTACHIO - Tu mix natural
 
-<h3><em>Diseñado en IDE VSC utilizando Angular como framework de front-end y SpringBoot para el back-end. Con herramientas como MySQL, Hibernate para la conexión a bases de datos, JWT y Spring Security para la autenticacion y protección de datos y SweetAlert2 y JsPfd para alertas, confirmaciones y generación de archivo PDF</em></h3>
+**Aplicación web desarrollada con Angular y Spring Boot.**  
+Permite filtrar productos, realizar pedidos y gestionarlos desde una interfaz intuitiva.  
+Ideal para comercios que quieren ofrecer un catálogo online con control de stock.
 
-<p># Funcionalidad principal: filtrar y ver productos con sus caracteristicas y poder hacer pedidos, que por el momento se gestionan en una bse de datos y como extra genera un mensaje para enviar por Whatsapp con el numero de pedido generado y productos.</p>
+---
 
-<p># Tiene en cuenta stocks dispoibles</p>
+## 🛠️ Tecnologías utilizadas
 
-<p># Funcionalidad para loguearse como administrador y poder gestionar la tienda</p>
+- **Frontend**: Angular (desarrollado en Visual Studio Code)
+- **Backend**: Spring Boot
+- **Base de datos**: MySQL con Hibernate
+- **Seguridad**: JWT + Spring Security
+- **Alertas y confirmaciones**: SweetAlert2
+- **Generación de PDF**: jsPDF
 
-**Como ADMIN:**
-- Ver información de los productos y gestionarlos
-- Filtrar pedidos y ver su informacion con posibilidad de cancelarlos o cambiar los estados del mismo
-- Analizar ventas. Tanto por producto como por producto y fecha para tener ideas generales.
+---
 
-**Extra**:
-- Generar archivo PDF con el ranking de ventas por producto histórico.
+## 🚀 Funcionalidades principales
 
+- Filtrado y visualización de productos con sus características.
+- Realización de pedidos con control de stock disponible.
+- Generación automática de un mensaje para compartir por **WhatsApp**, con número de pedido y productos seleccionados.
+- Gestión completa a través de un panel de administrador.
 
-<br/>
+---
 
-<p>Repo front-end: <a href="https://github.com/amf-dev-gh/pistachio-front/tree/main">Pistachio (ANGULAR)</a></p>
-<p>Repo back-end: <a href="https://github.com/amf-dev-gh/pistachio-back">Pistachio (SpringBoot)</a></p>
+## 🔐 Funcionalidades como ADMIN
 
-<hr/>
-<p>Creador: Andres Mariano Fernández -> <a href="https://amf-dev.site/inicio">amf-dev.site</a></p>
-<p>Año: 2025</p>
+- **Gestión de productos**: ver, editar y eliminar.
+- **Gestión de pedidos**: filtrar por estado, cancelar o cambiar estado.
+- **Análisis de ventas**:
+  - Por producto.
+  - Por producto y fecha.
+- **Extra**: generación de archivo **PDF** con el ranking histórico de ventas por producto.
+
+---
+
+## 📁 Repositorios
+
+- 🔗 [Frontend - Angular](https://github.com/amf-dev-gh/pistachio-front/tree/main)
+- 🔗 [Backend - Spring Boot](https://github.com/amf-dev-gh/pistachio-back)
+
+---
+
+## 👤 Autor
+
+**Andrés Mariano Fernández**  
+🌐 [https://amf-dev.site](https://amf-dev.site)  
+📅 Año: 2025
