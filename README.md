@@ -1,19 +1,51 @@
-# Pistachio - Tu mix natural
+# 🥜 PISTACHIO - Tu mix natural
 
-## Aplicación web para generar pedidos
+**Aplicación web desarrollada con Angular y Spring Boot.**  
+Permite filtrar productos, realizar pedidos y gestionarlos desde una interfaz intuitiva.  
+Ideal para comercios que quieren ofrecer un catálogo online con control de stock.
 
-### Herramientas utilizadas
+---
 
-Hasta el momento la aplicación esta construida con Angular y consume un archivo JSON para obtener productos y poder generar los pedidos.
+## 🛠️ Tecnologías utilizadas
 
-Localmente estoy consumiendo una API REST creada con SpringBoot la cual intentare desplegar proximamente.
+- **Frontend**: Angular (desarrollado en Visual Studio Code)
+- **Backend**: Spring Boot
+- **Base de datos**: MySQL con Hibernate
+- **Seguridad**: JWT + Spring Security
+- **Alertas y confirmaciones**: SweetAlert2
+- **Generación de PDF**: jsPDF
 
-Este y algunos proyectos mas los podrá encontrar en mi web personal [amf-dev.site](https://amf-dev.site/inicio)
+---
 
-### Resources
+## 🚀 Funcionalidades principales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Filtrado y visualización de productos con sus características.
+- Realización de pedidos con control de stock disponible.
+- Generación automática de un mensaje para compartir por **WhatsApp**, con número de pedido y productos seleccionados.
+- Gestión completa a través de un panel de administrador.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🔐 Funcionalidades como ADMIN
+
+- **Gestión de productos**: ver, editar y eliminar.
+- **Gestión de pedidos**: filtrar por estado, cancelar o cambiar estado.
+- **Análisis de ventas**:
+  - Por producto.
+  - Por producto y fecha.
+- **Extra**: generación de archivo **PDF** con el ranking histórico de ventas por producto.
+
+---
+
+## 📁 Repositorios
+
+- 🔗 [Frontend - Angular](https://github.com/amf-dev-gh/pistachio-front/tree/main)
+- 🔗 [Backend - Spring Boot](https://github.com/amf-dev-gh/pistachio-back)
+
+---
+
+## 👤 Autor
+
+**Andrés Mariano Fernández**  
+🌐 [https://amf-dev.site](https://amf-dev.site)  
+📅 Año: 2025
